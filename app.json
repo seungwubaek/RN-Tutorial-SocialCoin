@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "RN-Tutorial-SocialCoin",
+    "slug": "RN-Tutorial-SocialCoin",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "RN-Tutorial-SocialCoin"
+}
