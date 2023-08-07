@@ -1,11 +1,14 @@
 import React from 'react';
 
+// Components
+import { Ionicons } from '@expo/vector-icons';
+
 // Styles
 import {
   StBtnJoin,
-  StBtnJoinText,
   StText,
   StViewContainer,
+  StViewJoinMsgContainer,
 } from './Login.style';
 
 // Types
@@ -16,12 +19,14 @@ const Login: React.FC<OutNavStackScreenProps<'Login'>> = ({
 }) => {
   return (
     <StViewContainer>
-      <StText>
-        Don't have an account?{' '}
+      <StViewJoinMsgContainer>
+        <StText>Don't have an account? </StText>
         <StBtnJoin onPress={() => navigate('Join')}>
-          <StBtnJoinText>Join</StBtnJoinText>
+          <StText>
+            Join <Ionicons name="arrow-forward-outline" size={15} />
+          </StText>
         </StBtnJoin>
-      </StText>
+      </StViewJoinMsgContainer>
     </StViewContainer>
   );
 };

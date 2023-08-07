@@ -1,12 +1,13 @@
 import React from 'react';
-
-// Styles
-import { StText, StTextInput, StViewContainer } from './Join.style';
 import { TextInput } from 'react-native';
 
 // Styles
+import { StBtnJoin, StBtnJoinText, StTextInputJoinForm, StViewContainer, StViewJoinForm } from './Join.style';
 
-const Join = () => {
+// Types
+import { OutNavStackScreenProps } from '~/types/react-navigation';
+
+const Join: React.FC<OutNavStackScreenProps<'Join'>> = ({}) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const emailOnSubmitEditing = () => {
@@ -16,7 +17,8 @@ const Join = () => {
 
   return (
     <StViewContainer>
-      <StTextInput
+      <StViewJoinForm>
+      <StTextInputJoinForm
         placeholder="Email"
         keyboardType="email-address"
         autoCapitalize="none"
@@ -25,15 +27,19 @@ const Join = () => {
         value={email}
         onChangeText={(text) => setEmail(text)}
         onSubmitEditing={emailOnSubmitEditing}
-      ></StTextInput>
-      <StTextInput
+      ></StTextInputJoinForm>
+      <StTextInputJoinForm
         ref={passwordInputRef}
         placeholder="Password"
         secureTextEntry
         value={password}
         returnKeyType="done"
         onChangeText={(text) => setPassword(text)}
-      ></StTextInput>
+      ></StTextInputJoinForm>
+      <StBtnJoin onPress={() => {}}>
+        <StBtnJoinText>Create Account</StBtnJoinText>
+      </StBtnJoin>
+      </StViewJoinForm>
     </StViewContainer>
   );
 };

@@ -1,10 +1,15 @@
-import React from 'react';
 import styled from 'styled-components/native';
 
-export const StViewContainer = styled.View``;
+import { StTextBase, StViewContainerBase } from '~/styles/base';
 
-export const StText = styled.Text``;
+export const StViewContainer = styled(StViewContainerBase)``;
+
+export const StViewJoinMsgContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const StText = styled(StTextBase)``;
 
 export const StBtnJoin = styled.TouchableOpacity``;
-
-export const StBtnJoinText = styled.Text``;
