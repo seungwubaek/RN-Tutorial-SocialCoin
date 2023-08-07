@@ -3,3 +3,8 @@
 ## Stack
 
 * Firebase
+* FlatList
+
+## FlatList
+
+* `numColumns`

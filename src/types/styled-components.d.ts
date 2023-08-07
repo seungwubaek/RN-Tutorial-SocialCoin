@@ -11,5 +11,6 @@ declare module 'styled-components/native' {
     darkTextInputPlaceholderTextColor: string;
     textColor: string;
     borderColor: string;
+    cryptoCardBgColor: string;
   }
 }

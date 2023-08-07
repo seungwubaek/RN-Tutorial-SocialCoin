@@ -29,7 +29,7 @@ const InNav = () => {
         animation: 'slide_from_right',
       }}
     >
-      <Nav.Screen name="Home" component={Home} />
+      <Nav.Screen name="Home" component={Home} options={{ title: 'Coins' }} />
     </Nav.Navigator>
   );
 };

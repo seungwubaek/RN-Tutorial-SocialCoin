@@ -10,4 +10,5 @@ export const defaultTheme: DefaultTheme = {
   darkTextInputPlaceholderTextColor: 'rgb(170, 170, 170)',
   textColor: 'rgb(220, 220, 220)',
   borderColor: 'rgb(150, 150, 150)',
+  cryptoCardBgColor: 'rgb(75, 75, 75)',
 };
