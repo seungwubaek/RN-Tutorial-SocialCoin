@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Screens
 import Home from '~/screens/Home/Home';
+import CoinDetail from '~/screens/CoinDetail';
 
 // Styles
 import { useTheme } from 'styled-components/native';
@@ -30,6 +31,7 @@ const InNav = () => {
       }}
     >
       <Nav.Screen name="Home" component={Home} options={{ title: 'Coins' }} />
+      <Nav.Screen name="CoinDetail" component={CoinDetail} />
     </Nav.Navigator>
   );
 };

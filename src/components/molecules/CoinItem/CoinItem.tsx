@@ -1,20 +1,28 @@
 import React from 'react';
-import { Animated } from 'react-native';
+import { Animated, TouchableOpacity, Pressable, Text } from 'react-native';
 
 // Styled Components
-import { StImgCoin, StTextCoinSymbol, AniStViewCoin } from './CoinItem.style';
+import {
+  StImgCoin,
+  StTextCoinSymbol,
+  AniStViewCoin,
+  StBtnCoin,
+} from './CoinItem.style';
 
 // Types
 import { Coin } from '~/types/coinPaprika';
+import { useNavigation } from '@react-navigation/native';
+import { InNavStackNavigationProp } from '~/types/react-navigation';
 
 const CoinItem: React.FC<{ item: Coin; index: number }> = ({ item, index }) => {
+  const navigation = useNavigation<InNavStackNavigationProp<'CoinDetail'>>();
   const opacity = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
     Animated.spring(opacity, {
       toValue: 1,
       useNativeDriver: true,
-      delay: index * 100,
+      delay: index * 20,
     }).start();
   }, []);
 
@@ -24,19 +32,23 @@ const CoinItem: React.FC<{ item: Coin; index: number }> = ({ item, index }) => {
   });
 
   return (
-    <AniStViewCoin
-      style={{
-        opacity,
-        transform: [{ scale }],
-      }}
+    <StBtnCoin
+      onPress={() => navigation.navigate('CoinDetail', { coin: item })}
     >
-      <StImgCoin
-        source={{
-          uri: `https://coinicons-api.vercel.app/api/icon/${item.symbol.toLowerCase()}`,
+      <AniStViewCoin
+        style={{
+          opacity,
+          transform: [{ scale }],
         }}
-      />
-      <StTextCoinSymbol>{item.symbol}</StTextCoinSymbol>
-    </AniStViewCoin>
+      >
+        <StImgCoin
+          source={{
+            uri: `https://coinicons-api.vercel.app/api/icon/${item.symbol.toLowerCase()}`,
+          }}
+        />
+        <StTextCoinSymbol>{item.symbol}</StTextCoinSymbol>
+      </AniStViewCoin>
+    </StBtnCoin>
   );
 };
 

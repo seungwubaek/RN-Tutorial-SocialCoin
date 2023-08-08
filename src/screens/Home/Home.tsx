@@ -19,19 +19,20 @@ import {
 
 // Types
 import { Coin } from '~/types/coinPaprika';
+import { InNavStackScreenProps } from '~/types/react-navigation';
 
-const Home = () => {
+const Home: React.FC<InNavStackScreenProps<'Home'>> = () => {
   const [cleanData, setCleanData] = React.useState<Coin[]>([]);
   const theme = useTheme();
   const { isLoading, data } = useQuery(['coins'], getCoins);
 
-  console.log(data?.length, cleanData?.length);
+  console.log('Cleaned Data Length', cleanData?.length ?? 0);
 
   React.useEffect(() => {
     if (!data || data.length === 0) return;
     setCleanData(
       data?.filter(
-        (coin) => coin.rank >= 2 && coin.is_active && !coin.is_new
+        (coin) => coin.rank !== 0 && coin.is_active && !coin.is_new
       ) ?? []
     );
   }, [data]);
