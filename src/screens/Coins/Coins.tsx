@@ -15,13 +15,13 @@ import {
   StViewLoadingAPI,
   StFlatListCoins,
   StViewSepForFlatListCoins,
-} from './Home.style';
+} from './Coins.style';
 
 // Types
 import { Coin } from '~/types/coinPaprika';
 import { InNavStackScreenProps } from '~/types/react-navigation';
 
-const Home: React.FC<InNavStackScreenProps<'Home'>> = () => {
+const Coins: React.FC<InNavStackScreenProps<'Coins'>> = () => {
   const [cleanData, setCleanData] = React.useState<Coin[]>([]);
   const theme = useTheme();
   const { isLoading, data } = useQuery(['coins'], getCoins);
@@ -59,4 +59,4 @@ const Home: React.FC<InNavStackScreenProps<'Home'>> = () => {
   );
 };
 
-export default Home;
+export default Coins;

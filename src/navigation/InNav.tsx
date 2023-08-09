@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Screens
-import Home from '~/screens/Home/Home';
+import Coins from '~/screens/Coins';
 import CoinDetail from '~/screens/CoinDetail';
 
 // Styles
@@ -30,7 +30,7 @@ const InNav = () => {
         animation: 'slide_from_right',
       }}
     >
-      <Nav.Screen name="Home" component={Home} options={{ title: 'Coins' }} />
+      <Nav.Screen name="Coins" component={Coins} />
       <Nav.Screen name="CoinDetail" component={CoinDetail} />
     </Nav.Navigator>
   );

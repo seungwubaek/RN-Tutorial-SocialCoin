@@ -5,6 +5,7 @@ import { Coin } from './coinPaprika';
 
 export type InNavStackParamList = {
   Home: undefined;
+  Coins: undefined;
   CoinDetail: { coin: Coin };
 };
 
