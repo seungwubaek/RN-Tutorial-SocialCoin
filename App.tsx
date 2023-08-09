@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components/native';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 // Navigations
-import InNav from '~/navigation/InNav';
+import InNavRoot from '~/navigation/InNavRoot';
 import OutNav from '~/navigation/OutNav';
 
 // Styles
@@ -30,7 +30,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={defaultTheme}>
         <NavigationContainer>
-          {isLoggedIn ? <InNav /> : <OutNav />}
+          {isLoggedIn ? <InNavRoot /> : <OutNav />}
         </NavigationContainer>
       </ThemeProvider>
     </QueryClientProvider>

@@ -1,10 +1,17 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Types
 import { Coin } from './coinPaprika';
 
-export type InNavStackParamList = {
+// Navigators
+
+export type InNavTabParamList = {
   Home: undefined;
+  Coins: undefined;
+};
+
+export type InNavStackParamList = {
   Coins: undefined;
   CoinDetail: { coin: Coin };
 };
@@ -13,6 +20,11 @@ export type OutNavStackParamList = {
   Login: undefined;
   Join: undefined;
 };
+
+// Screens
+
+export type InNavTabScreenProps<T extends keyof InNavTabParamList> =
+  BottomTabScreenProps<InNavTabParamList, T>;
 
 export type InNavStackScreenProps<T extends keyof InNavStackParamList> =
   NativeStackScreenProps<InNavStackParamList, T>;

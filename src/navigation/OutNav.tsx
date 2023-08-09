@@ -31,7 +31,11 @@ const OutNav = () => {
         animation: 'slide_from_right',
       }}
     >
-      <Nav.Screen name="Login" component={Login} />
+      <Nav.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
       <Nav.Screen name="Join" component={Join} />
     </Nav.Navigator>
   );

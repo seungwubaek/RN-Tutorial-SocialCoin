@@ -12,7 +12,7 @@ import type { InNavStackParamList } from '~/types/react-navigation';
 
 const Nav = createNativeStackNavigator<InNavStackParamList>();
 
-const InNav = () => {
+const InNavStack = () => {
   const theme = useTheme();
 
   return (
@@ -36,4 +36,4 @@ const InNav = () => {
   );
 };
 
-export default InNav;
+export default InNavStack;
