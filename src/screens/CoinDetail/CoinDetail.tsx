@@ -96,7 +96,7 @@ const CoinDetail: React.FC<InNavStackScreenProps<'CoinDetail'>> = (props) => {
           />
           <VictoryLine
             data={victoryData}
-            interpolation={'natural'}
+            interpolation={'linear'}
             style={{
               data: { stroke: '#1abc9c' },
             }}
@@ -106,7 +106,8 @@ const CoinDetail: React.FC<InNavStackScreenProps<'CoinDetail'>> = (props) => {
           />
           <VictoryScatter
             data={victoryData}
-            style={{ data: { fill: '#1abc9c' } }}
+            size={5}
+            style={{ data: { fill: '#20e0ba' } }}
           />
         </VictoryChart>
       ) : (
