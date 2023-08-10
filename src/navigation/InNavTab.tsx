@@ -1,3 +1,4 @@
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Components
@@ -19,6 +20,7 @@ const NAV_HEIGHT = 60;
 
 const InNavTab = () => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
   return (
     <Nav.Navigator
@@ -34,7 +36,7 @@ const InNavTab = () => {
         },
         tabBarStyle: {
           backgroundColor: theme.navTabBgColor,
-          height: NAV_HEIGHT,
+          height: NAV_HEIGHT + insets.bottom,
           paddingTop: 10,
         },
         tabBarActiveTintColor: theme.navTabLabelColor,
