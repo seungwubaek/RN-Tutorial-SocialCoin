@@ -26,6 +26,7 @@ const InNavTab = () => {
   return (
     <Nav.Navigator
       screenOptions={{
+        headerShown: false,
         headerStyle: {
           backgroundColor: theme.navHeaderBgColor,
         },
@@ -52,6 +53,7 @@ const InNavTab = () => {
         name="Home"
         component={Home}
         options={{
+          headerShown: true,
           tabBarIcon: ({ focused, color, size }) => {
             if (Platform.OS === 'ios')
               return (
