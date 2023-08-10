@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -52,7 +53,12 @@ const InNavTab = () => {
         component={Home}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
-            return <Ionicons name="home-outline" size={size} color={color} />;
+            if (Platform.OS === 'ios')
+              return (
+                <Ionicons name="ios-home-outline" size={size} color={color} />
+              );
+            else
+              return <Ionicons name="home-outline" size={size} color={color} />;
           },
         }}
       />

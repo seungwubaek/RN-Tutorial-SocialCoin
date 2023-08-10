@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Alert, TextInput } from 'react-native';
+import { Platform, ActivityIndicator, Alert, TextInput } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 // Components
@@ -118,7 +118,12 @@ const Login: React.FC<OutNavStackScreenProps<'Login'>> = ({
           </StTextJoinMsgDoYouHave>
           <StBtnJoin onPress={() => navigate('Join')}>
             <StTextJoin>
-              Join <Ionicons name="arrow-forward-outline" size={15} />
+              Join{' '}
+              {Platform.OS === 'ios' ? (
+                <Ionicons name="ios-arrow-forward-outline" size={15} />
+              ) : (
+                <Ionicons name="arrow-forward-outline" size={15} />
+              )}
             </StTextJoin>
           </StBtnJoin>
         </StViewJoinMsgContainer>
