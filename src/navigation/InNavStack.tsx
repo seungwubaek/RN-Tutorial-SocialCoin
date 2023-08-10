@@ -1,5 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
-import { HeaderBackButton } from '@react-navigation/elements';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Screens
@@ -15,7 +13,6 @@ import type { InNavStackParamList } from '~/types/react-navigation';
 const Nav = createNativeStackNavigator<InNavStackParamList>();
 
 const InNavStack = () => {
-  const navigation = useNavigation();
   const theme = useTheme();
 
   return (
@@ -34,21 +31,7 @@ const InNavStack = () => {
         animation: 'slide_from_right',
       }}
     >
-      <Nav.Screen
-        name="Coins"
-        component={Coins}
-        options={{
-          headerBackVisible: false,
-          headerLeft: (props) =>
-            props.canGoBack && (
-              <HeaderBackButton
-                {...props}
-                style={{ marginLeft: 0 }}
-                onPress={() => navigation.goBack()}
-              />
-            ),
-        }}
-      />
+      <Nav.Screen name="Coins" component={Coins} />
       <Nav.Screen name="CoinDetail" component={CoinDetail} />
     </Nav.Navigator>
   );

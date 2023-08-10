@@ -1,12 +1,9 @@
-import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Components
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
-
-// Screens
-import Coins from '~/screens/Coins';
 
 // Styles
 import { useTheme } from 'styled-components/native';
@@ -14,6 +11,7 @@ import { useTheme } from 'styled-components/native';
 // Types
 import type { InNavTabParamList } from '~/types/react-navigation';
 import Home from '~/screens/Home/Home';
+import InNavStack from './InNavStack';
 
 const Nav = createBottomTabNavigator<InNavTabParamList>();
 
@@ -65,19 +63,14 @@ const InNavTab = () => {
         }}
       />
       <Nav.Screen
-        name="Coins"
-        component={Coins}
+        name="InNavStack"
+        component={InNavStack}
         options={{
+          title: 'Coins',
           tabBarIcon: ({ focused, color, size }) => {
             return <FontAwesome5 name="coins" size={size - 5} color={color} />;
           },
         }}
-        listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            e.preventDefault();
-            navigation.navigate('InNavStack', { screen: 'Coins' });
-          },
-        })}
       />
     </Nav.Navigator>
   );

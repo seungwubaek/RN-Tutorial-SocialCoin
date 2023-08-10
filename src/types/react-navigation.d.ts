@@ -8,7 +8,7 @@ import { Coin } from './coinPaprika';
 
 export type InNavTabParamList = {
   Home: undefined;
-  Coins: undefined;
+  InNavStack: undefined;
 };
 
 export type InNavStackParamList = {

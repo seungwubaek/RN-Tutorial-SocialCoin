@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'styled-components/native';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 // Navigations
-import InNavRoot from '~/navigation/InNavRoot';
+import InNavTab from '~/navigation/InNavTab';
 import OutNav from '~/navigation/OutNav';
 
 // Styles
@@ -27,12 +28,14 @@ export default function App() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={defaultTheme}>
-        <NavigationContainer>
-          {isLoggedIn ? <InNavRoot /> : <OutNav />}
-        </NavigationContainer>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={defaultTheme}>
+          <NavigationContainer>
+            {isLoggedIn ? <InNavTab /> : <OutNav />}
+          </NavigationContainer>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }
