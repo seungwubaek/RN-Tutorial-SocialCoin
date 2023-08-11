@@ -18,8 +18,8 @@ import {
 } from './Coins.style';
 
 // Types
-import { Coin } from '~/types/coinPaprika';
-import { InNavStackScreenProps } from '~/types/react-navigation';
+import type { Coin } from '~/types/coinPaprika';
+import type { InNavStackScreenProps } from '~/types/react-navigation';
 
 const Coins: React.FC<InNavStackScreenProps<'Coins'>> = () => {
   const [cleanData, setCleanData] = React.useState<Coin[]>([]);

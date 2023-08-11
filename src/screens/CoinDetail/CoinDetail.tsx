@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Linking } from 'react-native';
 import {
   VictoryTheme,
   VictoryChart,
@@ -10,14 +10,26 @@ import {
 } from 'victory-native';
 
 // Styled Components
-import { StImgHeader, StViewContainer } from './CoinDetail.style';
+import {
+  StBtnInfoLink,
+  StImgHeader,
+  StTextCoinTitle,
+  StTextInfoLabel,
+  StTextInfoLink,
+  StTextInfoValue,
+  StViewChartContainer,
+  StScrollViewContainer,
+  StViewInfoContainer,
+  StViewInfoRow,
+} from './CoinDetail.style';
 
 // Apis
 import { useQuery } from '@tanstack/react-query';
 import { getCoinHistory, getCoinInfo } from '~/apis/coinPaprika';
 
 // Types
-import { InNavStackScreenProps } from '~/types/react-navigation';
+import type { InNavStackScreenProps } from '~/types/react-navigation';
+import type { CoinInfo } from '~/types/coinPaprika';
 
 const CoinDetail: React.FC<InNavStackScreenProps<'CoinDetail'>> = (props) => {
   const {
@@ -32,6 +44,7 @@ const CoinDetail: React.FC<InNavStackScreenProps<'CoinDetail'>> = (props) => {
     ['coinHistory', params.coin.id],
     getCoinHistory
   );
+  const [coinInfoData, setCoinInfoData] = React.useState<CoinInfo>({});
   const [victoryData, setVictoryData] = React.useState<
     { x: string; y: number }[]
   >([]);
@@ -57,6 +70,18 @@ const CoinDetail: React.FC<InNavStackScreenProps<'CoinDetail'>> = (props) => {
   }, [dataHistory]);
 
   React.useEffect(() => {
+    if (dataInfo) {
+      setCoinInfoData({
+        name: dataInfo?.name,
+        symbol: dataInfo?.symbol,
+        description: dataInfo?.description,
+        rank: dataInfo?.rank,
+        links: dataInfo?.links,
+      });
+    }
+  }, [dataInfo]);
+
+  React.useEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
         <StImgHeader
@@ -68,55 +93,114 @@ const CoinDetail: React.FC<InNavStackScreenProps<'CoinDetail'>> = (props) => {
     });
   }, []);
 
+  const handleLinkPress = React.useCallback((url?: string | null) => {
+    if (url) {
+      Linking.openURL(url);
+    }
+  }, []);
+
   return (
-    <StViewContainer>
-      {victoryData.length > 0 ? (
-        <VictoryChart
-          height={400}
-          theme={VictoryTheme.material}
-          padding={{ top: 25, bottom: 100, left: 50, right: 65 }}
-        >
-          <VictoryAxis
-            tickLabelComponent={
-              <VictoryLabel
-                style={{
-                  fill: '#fff',
-                  fontSize: 10,
-                  textAnchor: 'start',
-                  angle: 75,
-                }}
-              />
-            }
-          />
-          <VictoryAxis
-            dependentAxis
+    <StScrollViewContainer>
+      <StTextCoinTitle>{coinInfoData.name}</StTextCoinTitle>
+      <StViewChartContainer>
+        {victoryData.length > 0 ? (
+          <VictoryChart
+            height={400}
+            theme={VictoryTheme.material}
+            padding={{ top: 25, bottom: 100, left: 50, right: 65 }}
+          >
+            <VictoryAxis
+              tickLabelComponent={
+                <VictoryLabel
+                  style={{
+                    fill: '#fff',
+                    fontSize: 10,
+                    textAnchor: 'start',
+                    angle: 75,
+                  }}
+                />
+              }
+            />
+            <VictoryAxis
+              dependentAxis
+              style={{
+                tickLabels: { fill: '#fff', fontSize: 10 },
+              }}
+            />
+            <VictoryLine
+              data={victoryData}
+              interpolation={'linear'}
+              style={{
+                data: { stroke: '#1abc9c' },
+              }}
+              animate={{
+                onLoad: { duration: 250 },
+              }}
+            />
+            <VictoryScatter
+              data={victoryData}
+              size={5}
+              style={{ data: { fill: '#20e0ba' } }}
+            />
+          </VictoryChart>
+        ) : (
+          <ActivityIndicator
+            size={'large'}
             style={{
-              tickLabels: { fill: '#fff', fontSize: 10 },
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           />
-          <VictoryLine
-            data={victoryData}
-            interpolation={'linear'}
-            style={{
-              data: { stroke: '#1abc9c' },
-            }}
-            animate={{
-              onLoad: { duration: 250 },
-            }}
-          />
-          <VictoryScatter
-            data={victoryData}
-            size={5}
-            style={{ data: { fill: '#20e0ba' } }}
-          />
-        </VictoryChart>
-      ) : (
-        <ActivityIndicator
-          size={'large'}
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        />
-      )}
-    </StViewContainer>
+        )}
+      </StViewChartContainer>
+      <StViewInfoContainer>
+        {coinInfoData.description && (
+          <StViewInfoRow>
+            <StTextInfoLabel>Description</StTextInfoLabel>
+            <StTextInfoValue>{coinInfoData.description}</StTextInfoValue>
+          </StViewInfoRow>
+        )}
+        {coinInfoData.rank && (
+          <StViewInfoRow>
+            <StTextInfoLabel>Rank</StTextInfoLabel>
+            <StTextInfoValue>{coinInfoData.rank}</StTextInfoValue>
+          </StViewInfoRow>
+        )}
+        {coinInfoData.links && (
+          <StViewInfoRow>
+            <StTextInfoLabel>Links</StTextInfoLabel>
+            {coinInfoData.links?.website && (
+              <StBtnInfoLink
+                key={`${coinInfoData.id}-website`}
+                onPress={() => handleLinkPress(coinInfoData.links?.website[0])}
+              >
+                <StTextInfoLink>Website</StTextInfoLink>
+              </StBtnInfoLink>
+            )}
+            {Object.keys(coinInfoData.links).length > 0 &&
+              Object.keys(coinInfoData.links).map((linkKey) => {
+                if (linkKey === 'website' || linkKey === 'explorer')
+                  return null;
+                const link = coinInfoData.links?.[linkKey];
+                return (
+                  <StBtnInfoLink
+                    key={`${coinInfoData.id}-${linkKey}`}
+                    onPress={() => handleLinkPress(link?.[0])}
+                  >
+                    <StTextInfoLink>
+                      {(linkKey[0].toUpperCase() + linkKey.slice(1)).replace(
+                        '_',
+                        ' '
+                      )}
+                    </StTextInfoLink>
+                  </StBtnInfoLink>
+                );
+              })}
+          </StViewInfoRow>
+        )}
+      </StViewInfoContainer>
+    </StScrollViewContainer>
   );
 };
 
